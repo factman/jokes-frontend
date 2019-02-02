@@ -3,10 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { JokesComponent } from './jokes/jokes.component';
+import { CategoryComponent } from './category/category.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidebarComponent,
+    JokesComponent,
+    CategoryComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,
