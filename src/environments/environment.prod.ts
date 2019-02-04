@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://health-jokes-api.herokuapp.com/api',
 };

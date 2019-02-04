@@ -1,24 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { JokesComponent } from './jokes/jokes.component';
-import { CategoryComponent } from './category/category.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { JokesComponent } from './pages/jokes/jokes.component';
+import { CategoryComponent } from './components/category/category.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
     JokesComponent,
     CategoryComponent,
-    BreadcrumbComponent
+    CategoriesComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
