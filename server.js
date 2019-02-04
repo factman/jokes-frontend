@@ -5,9 +5,9 @@ const app = express();
 
 try {
 // Serve only the static files form the dist directory
-app.use(express.static(__dirname + './dist/jokes-frontend'));
+app.use(express.static(__dirname + '/dist/jokes-frontend'));
 app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname+'./dist/jokes-frontend/index.html'));
+  res.sendFile(path.join(__dirname+'/dist/jokes-frontend/index.html'));
 });
 } catch (ex) {
   console.log(ex.message)
