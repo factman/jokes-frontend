@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JokesComponent } from './pages/jokes/jokes.component';
 import { CategoryComponent } from './components/category/category.component';
-import { CategoriesComponent } from './pages/categories/categories.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MaterialModule } from './material/material.module';
 
@@ -16,7 +15,6 @@ import { MaterialModule } from './material/material.module';
     AppComponent,
     JokesComponent,
     CategoryComponent,
-    CategoriesComponent,
     HeaderComponent
   ],
   imports: [

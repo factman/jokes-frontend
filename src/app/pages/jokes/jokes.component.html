@@ -1,22 +1,57 @@
-<section class="container top-gap">
+<div class="spinner-con" *ngIf="loading">
+  <mat-spinner class="spinner"></mat-spinner>
+</div>
+
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">{{ title }}</h1>
+    </div>
+    <div class="col-sm-8 m-auto">
+      <mat-card class="mat-card">
+        <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
+          <mat-icon>filter_list</mat-icon>
+          <span>&nbsp; Category</span>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a routerLink="/categories/{{ category.name }}" mat-menu-item *ngFor="let category of categories">
+            {{ category.name }} ({{ category.count }})
+          </a>
+        </mat-menu>
+        <input matInput placeholder="Search" type="search" class="big-input" value="" (keypress)="searchJokes($event)">
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<section class="container">
   <div class="row mt-5">
-    <div class="col-sm-9">
-      <div class="row">
+    <div class="col-md-9" *ngIf="search">
+      <p>Search result of: <b>{{ search }}</b></p>
+    </div>
+    <div class="col-md-9">
+      <div class="row" *ngIf="jokes.length > 0">
         <mat-card class="col-md-12 mb-4 joke-card" *ngFor="let joke of jokes">
             <h3 mat-card-title>{{ joke.title }}</h3>
             <p>{{ joke.joke }}</p>
             <span mat-card-subtitle>Category:
               <a mat-button color="primary" routerLink="/categories/{{ joke.category }}">{{ joke.category }}</a>
-              <a mat-button color="primary" href="javascript:void(0)">
+              <a mat-button color="primary" href="javascript:void(0)" (click)="like(joke._id)">
                 <i class="material-icons">thumb_up</i>
                 <span>&nbsp;Likes ({{ joke.likes }})</span>
               </a>
             </span>
         </mat-card>
       </div>
+      <div class="row" *ngIf="jokes.length < 1">
+        <mat-card class="col-md-12 mb-4 joke-card">
+          <p>:) No jokes available, please create one.</p>
+        </mat-card>
+      </div>
     </div>
-    <div class="col-sm-3">
-      <app-category></app-category>
+    <div class="col-md-3">
+      <app-category [categories]="categories"></app-category>
     </div>
   </div>
 </section>

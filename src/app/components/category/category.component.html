@@ -1,3 +1,9 @@
-<p>
-  category works!
-</p>
+<mat-list>
+  <h3 mat-subheader>Categories</h3>
+  <button mat-flat-button *ngFor="let category of categories">
+    <a routerLink="/categories/{{category.name}}" mat-list-item>
+      <mat-icon class="avatar" mat-list-icon>category</mat-icon>
+      <h4 mat-line>{{category.name}} ({{category.count}})</h4>
+    </a>
+  </button>
+</mat-list>
