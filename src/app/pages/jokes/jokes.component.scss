@@ -12,6 +12,10 @@
   }
 }
 
+.mat-card {
+  overflow: hidden;
+}
+
 .big-input {
   flex-grow: 1;
   border: 0;
@@ -46,4 +50,10 @@
     top: 45%;
     left: 45%;
   }
+}
+
+.fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
 }

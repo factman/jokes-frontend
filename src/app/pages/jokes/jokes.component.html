@@ -7,7 +7,7 @@
     <div class="col-sm-12">
       <h1 class="page-header">{{ title }}</h1>
     </div>
-    <div class="col-sm-8 m-auto">
+    <div class="col-sm-9 m-auto">
       <mat-card class="mat-card">
         <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
           <mat-icon>filter_list</mat-icon>
@@ -19,7 +19,7 @@
             {{ category.name }} ({{ category.count }})
           </a>
         </mat-menu>
-        <input matInput placeholder="Search" type="search" class="big-input" value="" (keypress)="searchJokes($event)">
+        <input placeholder="Search for jokes..." type="search" class="big-input" value="" (keypress)="searchJokes($event)">
       </mat-card>
     </div>
   </div>
@@ -37,7 +37,7 @@
             <p>{{ joke.joke }}</p>
             <span mat-card-subtitle>Category:
               <a mat-button color="primary" routerLink="/categories/{{ joke.category }}">{{ joke.category }}</a>
-              <a mat-button color="primary" href="javascript:void(0)" (click)="like(joke._id)">
+              <a mat-button color="primary" href="javascript:void(0)" (click)="like(joke)">
                 <i class="material-icons">thumb_up</i>
                 <span>&nbsp;Likes ({{ joke.likes }})</span>
               </a>
@@ -46,7 +46,7 @@
       </div>
       <div class="row" *ngIf="jokes.length < 1">
         <mat-card class="col-md-12 mb-4 joke-card">
-          <p>:) No jokes available, please create one.</p>
+          <p>:) No jokes available, crack a new joke.</p>
         </mat-card>
       </div>
     </div>
@@ -55,3 +55,8 @@
     </div>
   </div>
 </section>
+
+<button mat-fab color="primary" class="fab" matTooltipPosition="left" matTooltip="Crack a new joke"
+        (click)="openDialog('Crack a new joke')">
+  <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+</button>

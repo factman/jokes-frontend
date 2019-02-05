@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="jokeForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field>
+          <input matInput required type="text" formControlName="jokeTitle" [value]="data.joke.title" placeholder="Input">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <input matInput required type="text" formControlName="jokeCategory" [value]="data.joke.category" placeholder="Input">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field>
+          <textarea matInput required rows="4" formControlName="jokeBody" [value]="data.joke.body" placeholder="Textarea"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button type="submit" (click)="onSubmit()" [disabled]="!jokeForm.valid" color="primary">Submit</button>
+  <button type="reset" mat-raised-button>Reset</button>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

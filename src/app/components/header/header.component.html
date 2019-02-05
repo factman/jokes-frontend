@@ -1,12 +1,49 @@
 <div class="fixed-top">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <a routerLink="/jokes" class="navbar-brand">Healthera Jokes</a>
-      <span class="example-spacer"></span>
-      <a mat-button routerLink="/jokes">
-        <mat-icon>sentiment_satisfied_alt</mat-icon>
-        <span>&nbsp;Jokes</span>
+      <a routerLink="/jokes" class="navbar-brand">
+        <span>&nbsp;Healthera Jokes</span>
       </a>
+      <span class="example-spacer"></span>
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+        <span>&nbsp;Jokes Menu&nbsp;</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="import">
+          <mat-icon>publish</mat-icon>
+          <span>&nbsp;Upload Jokes</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="export">
+          <mat-icon>get_app</mat-icon>
+          <span>&nbsp;Download Jokes</span>
+        </button>
+      </mat-menu>
+
+      <mat-menu #import="matMenu">
+        <button mat-menu-item>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span>From JSON</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span>From CSV</span>
+        </button>
+      </mat-menu>
+
+      <mat-menu #export="matMenu">
+        <button mat-menu-item>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span>As JSON</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>insert_drive_file</mat-icon>
+          <span>As CSV</span>
+        </button>
+      </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>
