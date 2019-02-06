@@ -33,15 +33,23 @@
     <div class="col-md-9">
       <div class="row" *ngIf="jokes.length > 0">
         <mat-card class="col-md-12 mb-4 joke-card" *ngFor="let joke of jokes">
-            <h3 mat-card-title>{{ joke.title }}</h3>
-            <p>{{ joke.joke }}</p>
-            <span mat-card-subtitle>Category:
-              <a mat-button color="primary" routerLink="/categories/{{ joke.category }}">{{ joke.category }}</a>
-              <a mat-button color="primary" href="javascript:void(0)" (click)="like(joke)">
-                <i class="material-icons">thumb_up</i>
-                <span>&nbsp;Likes ({{ joke.likes }})</span>
-              </a>
-            </span>
+          <h3 mat-card-title>{{ joke.title }}</h3>
+          <p>{{ joke.joke }}</p>
+          <span mat-card-subtitle>Category:
+            <a mat-button color="primary" routerLink="/categories/{{ joke.category }}">{{ joke.category }}</a>
+            <a mat-button color="primary" href="javascript:void(0)" (click)="like(joke)">
+              <i class="material-icons">thumb_up</i>
+              <span>&nbsp;Likes ({{ joke.likes }})</span>
+            </a>
+            <a mat-button color="primary" href="javascript:void(0)" (click)="openDialog('Edit Joke', 'edit', joke)">
+              <i class="material-icons">edit</i>
+              <span>&nbsp;Edit</span>
+            </a>
+            <a mat-button color="warn" href="javascript:void(0)" (click)="openDeleteDialog('Delete Joke', 'delete', joke)">
+              <i class="material-icons">delete</i>
+              <span>&nbsp;Delete</span>
+            </a>
+          </span>
         </mat-card>
       </div>
       <div class="row" *ngIf="jokes.length < 1">

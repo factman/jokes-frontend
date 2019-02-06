@@ -35,4 +35,29 @@ export class ApiDataService {
       .then(res => res.json())
       .catch(err => Promise.reject(err.message));
   }
+
+  put(url: string, body: any = {}) {
+    return fetch(this.apiUrl.concat(url), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache',
+      },
+      body: JSON.stringify(body),
+    })
+      .then(res => res.json())
+      .catch(err => Promise.reject(err.message));
+  }
+
+  delete(url: string) {
+    return fetch(this.apiUrl.concat(url), {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache',
+      },
+    })
+      .then(res => res.json())
+      .catch(err => Promise.reject(err.message));
+  }
 }

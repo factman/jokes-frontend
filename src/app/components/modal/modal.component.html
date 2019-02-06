@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
-  <form [formGroup]="jokeForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="jokeForm" (ngSubmit)="onSubmit()" *ngIf="data.joke.action !== 'delete'">
     <div class="row">
       <div class="col-md-6">
         <mat-form-field>
@@ -14,14 +14,27 @@
       </div>
       <div class="col-md-12">
         <mat-form-field>
-          <textarea matInput required rows="4" formControlName="jokeBody" [value]="data.joke.body" placeholder="Textarea"></textarea>
+          <textarea matInput required rows="4" formControlName="jokeBody" [value]="data.joke.joke" placeholder="Textarea"></textarea>
         </mat-form-field>
       </div>
     </div>
   </form>
+
+  <div *ngIf="data.joke.action === 'delete'">
+    <h4>Are you sure you want to <code>Delete</code> this joke?</h4>
+    <p>
+      <b>Note: </b>Deleted jokes can not be recovered.
+    </p>
+  </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button type="submit" (click)="onSubmit()" [disabled]="!jokeForm.valid" color="primary">Submit</button>
-  <button type="reset" mat-raised-button>Reset</button>
-  <button mat-button (click)="onNoClick()">Close</button>
+  <div *ngIf="data.joke.action !== 'delete'">
+    <button mat-raised-button type="submit" (click)="onSubmit()" [disabled]="!jokeForm.valid" color="primary">Submit</button>
+    <button type="reset" mat-raised-button>Reset</button>
+    <button mat-button (click)="onNoClick()">Close</button>
+  </div>
+  <div *ngIf="data.joke.action === 'delete'">
+    <button mat-raised-button type="button" (click)="onDelete(true)" color="warn">Delete</button>
+    <button mat-button (click)="onDelete(false)">Cancel</button>
+  </div>
 </div>

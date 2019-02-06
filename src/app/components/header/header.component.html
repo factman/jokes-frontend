@@ -24,22 +24,22 @@
       </mat-menu>
 
       <mat-menu #import="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="upload('JSON')">
           <mat-icon>insert_drive_file</mat-icon>
           <span>From JSON</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="upload('CSV')">
           <mat-icon>insert_drive_file</mat-icon>
           <span>From CSV</span>
         </button>
       </mat-menu>
 
       <mat-menu #export="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="download('JSON')">
           <mat-icon>insert_drive_file</mat-icon>
           <span>As JSON</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="download('CSV')">
           <mat-icon>insert_drive_file</mat-icon>
           <span>As CSV</span>
         </button>

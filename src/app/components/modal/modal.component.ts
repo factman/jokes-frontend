@@ -28,7 +28,11 @@ export class ModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dialogRef.close(this.jokeForm.value);
+    this.dialogRef.close(this.jokeForm.valid ? this.jokeForm.value : false);
+  }
+
+  onDelete(val) {
+    this.dialogRef.close(val);
   }
 
 }

@@ -16,7 +16,7 @@ export class JokesComponent implements OnInit {
   title = 'Jokes';
   search;
   loading = false;
-  joke = {title: '', category: '', body: ''};
+  joke: any = {title: '', category: '', joke: '', action: 'create'};
 
   constructor(
     private apiData: ApiDataService,
@@ -26,9 +26,10 @@ export class JokesComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  openDialog(title: string): void {
+  openDeleteDialog(title: string, action: string = 'delete', joke): void {
+    Object.assign(this.joke, joke, { action });
     const dialogRef = this.dialog.open(ModalComponent, {
-      width: '800px',
+      width: '400px',
       data: {
         title,
         joke: this.joke,
@@ -38,7 +39,83 @@ export class JokesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loading = true;
-        console.log(result);
+        this.apiData.delete(`/jokes/${joke._id}`)
+          .then((res) => {
+            if (res.success) {
+              this.snackBar.open(res.message, 'Delete', { duration: 5000 });
+              this.loading = false;
+              this.navigator.onSameUrlNavigation = 'reload';
+              this.navigator.navigateByUrl(window.location.pathname);
+            } else {
+              this.snackBar.open(res.error.message, 'Delete', { duration: 5000 });
+              this.loading = false;
+            }
+          })
+          .catch(err => {
+            this.snackBar.open(err, 'Delete', { duration: 5000 });
+            this.loading = false;
+          });
+      }
+    });
+  }
+
+  openDialog(title: string, action: string = 'create', joke = this.joke): void {
+    Object.assign(this.joke, joke, { action });
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '800px',
+      data: {
+        title,
+        joke: this.joke,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.joke.action === 'create') {
+        this.loading = true;
+        this.apiData.post('/jokes', [{
+          title: result.jokeTitle,
+          category: result.jokeCategory,
+          joke: result.jokeBody,
+        }])
+          .then((res) => {
+            if (res.success) {
+              this.snackBar.open(res.message, 'Create', { duration: 5000 });
+              this.loading = false;
+              this.navigator.onSameUrlNavigation = 'reload';
+              this.navigator.navigateByUrl('/jokes');
+            } else {
+              this.snackBar.open(res.error.message, 'Create', { duration: 5000 });
+              this.loading = false;
+            }
+          })
+          .catch(err => {
+            this.snackBar.open(err, 'Create', { duration: 5000 });
+            this.loading = false;
+          });
+      }
+
+      if (result && this.joke.action === 'edit') {
+        this.loading = true;
+        this.apiData.put(`/jokes/${joke._id}`, {
+          title: result.jokeTitle,
+          category: result.jokeCategory,
+          joke: result.jokeBody,
+        })
+          .then((res) => {
+            if (res.success) {
+              this.snackBar.open(res.message, 'Edit', { duration: 5000 });
+              this.loading = false;
+              this.navigator.onSameUrlNavigation = 'reload';
+              this.navigator.navigateByUrl(window.location.pathname);
+            } else {
+              this.snackBar.open(res.error.message, 'Edit', { duration: 5000 });
+              this.loading = false;
+            }
+          })
+          .catch(err => {
+            this.snackBar.open(err, 'Edit', { duration: 5000 });
+            this.loading = false;
+          });
       }
     });
   }
@@ -95,13 +172,13 @@ export class JokesComponent implements OnInit {
                 this.jokes = res.data;
               } else {
                 this.jokes = [];
-                this.snackBar.open(res.error.message, 'Jokes', { duration: 5000 });
+                this.snackBar.open(res.error.message, 'Category Filter', { duration: 5000 });
               }
               this.loading = false;
               this.title = `${url[1].path} Category`;
             })
             .catch((err) => {
-              this.snackBar.open(err, 'Jokes', { duration: 5000 });
+              this.snackBar.open(err, 'Category Filter', { duration: 5000 });
               this.jokes = [];
               this.loading = false;
             });
@@ -120,7 +197,7 @@ export class JokesComponent implements OnInit {
               this.search = url[1].path;
             })
             .catch((err) => {
-              this.snackBar.open(err, 'Jokes', { duration: 5000 });
+              this.snackBar.open(err, 'Search', { duration: 5000 });
               this.jokes = [];
               this.loading = false;
             });
